@@ -29,6 +29,11 @@ class _PhotoListPageState extends State<PhotoListPage> {
       bloc: presenter,
       builder: (context, state) {
         return Scaffold(
+          appBar: AppBar(
+            automaticallyImplyLeading: false,
+            title: const Text('CF Flutter'),
+            centerTitle: true,
+          ),
           body: state.isLoading
               ? const Center(
                   child: CircularProgressIndicator(),

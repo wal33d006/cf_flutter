@@ -20,10 +20,10 @@ class PhotoJson {
   factory PhotoJson.fromJson(Map<String, dynamic> json) => PhotoJson(
         id: json['id'] as int? ?? 0,
         sol: json['sol'] as int? ?? 0,
-        camera: CameraJson.fromJson(json['camera']),
-        imgSrc: json['img_src'],
-        earthDate: json['earth_date'],
-        rover: RoverJson.fromJson(json['rover']),
+        camera: json['camera'] != null ? CameraJson.fromJson(json['camera']) : CameraJson.fromJson({}),
+        imgSrc: json['img_src'] as String? ?? '',
+        earthDate: json['earth_date'] as String? ?? '',
+        rover: json['rover'] != null ? RoverJson.fromJson(json['camera']) : RoverJson.fromJson({}),
       );
 
   Photo toDomain() => Photo(
@@ -80,11 +80,11 @@ class RoverJson {
   });
 
   factory RoverJson.fromJson(Map<String, dynamic> json) => RoverJson(
-        id: json['id'],
-        name: json['name'],
-        landingDate: json['landing_date'],
-        launchDate: json['launch_date'],
-        status: json['status'],
+        id: json['id'] as int? ?? 0,
+        name: json['name'] as String? ?? '',
+        landingDate: json['landing_date'] as String? ?? '',
+        launchDate: json['launch_date'] as String? ?? '',
+        status: json['status'] as String? ?? '',
       );
 
   Rover toDomain() => Rover(

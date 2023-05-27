@@ -1,3 +1,4 @@
+import 'package:cf_flutter/domain/failures/get_photos_failure.dart';
 import 'package:cf_flutter/domain/models/photo.dart';
 import 'package:cf_flutter/features/photo_details/photo_details_initial_params.dart';
 import 'package:cf_flutter/features/photo_list/photo_list_presenter.dart';
@@ -24,6 +25,18 @@ void main() {
       expect(presenter.state.photos.length, Mocks.photos.length);
 
       verify(() => mockNasaRepository.getPhotos());
+    },
+  );
+
+  test(
+    'On error from photo list api should show error dialog',
+    () async {
+      when(() => mockNasaRepository.getPhotos()).thenAnswer((_) => Future.value(left(const GetPhotosFailure())));
+      when(() => navigator.showError(any())).thenAnswer((_) => Future.value());
+
+      await presenter.onInit();
+
+      verify(() => navigator.showError(any()));
     },
   );
 

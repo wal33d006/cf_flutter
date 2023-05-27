@@ -1,3 +1,4 @@
+import 'package:cf_flutter/data/network/dio_client.dart';
 import 'package:cf_flutter/domain/models/photo.dart';
 import 'package:cf_flutter/domain/respositories/auth_repository.dart';
 import 'package:cf_flutter/domain/respositories/nasa_respository.dart';
@@ -12,6 +13,12 @@ class Mocks {
     Photo.empty().copyWith(id: 543),
     Photo.empty().copyWith(id: 1234),
   ];
+
+  static Map<String, dynamic> partialPhotoJson = {
+    "photos": [
+      {"id": 123}
+    ]
+  };
 }
 
 class MockPhotoListNavigator extends Mock implements PhotoListNavigator {}
@@ -21,3 +28,5 @@ class MockOnboardingNavigator extends Mock implements OnboardingNavigator {}
 class MockNasaRepository extends Mock implements NasaRepository {}
 
 class MockAuthRepository extends Mock implements AuthRepository {}
+
+class MockDioClient extends Mock implements DioClient {}

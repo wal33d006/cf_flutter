@@ -5,27 +5,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PhotoListPage extends StatefulWidget {
-  const PhotoListPage({Key? key}) : super(key: key);
+  final PhotoListPresenter presenter;
+
+  const PhotoListPage({required this.presenter, Key? key}) : super(key: key);
 
   @override
   State<PhotoListPage> createState() => _PhotoListPageState();
 }
 
 class _PhotoListPageState extends State<PhotoListPage> {
-  late PhotoListPresenter cubit;
+  PhotoListPresenter get presenter => widget.presenter;
 
   @override
   void initState() {
     super.initState();
-    cubit = BlocProvider.of<PhotoListPresenter>(context);
-    cubit.navigator.context = context;
-    cubit.onInit();
+    presenter.navigator.context = context;
+    presenter.onInit();
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<PhotoListPresenter, PhotoListPresentationModel>(
-      bloc: cubit,
+      bloc: presenter,
       builder: (context, state) {
         return Scaffold(
           body: state.isLoading
@@ -40,7 +41,7 @@ class _PhotoListPageState extends State<PhotoListPage> {
                           decoration:
                               BoxDecoration(color: Colors.grey.shade200, borderRadius: BorderRadius.circular(10)),
                           child: ListTile(
-                            onTap: () => cubit.onPhotoTapped(photo),
+                            onTap: () => presenter.onPhotoTapped(photo),
                             title: Text(photo.camera.name),
                             subtitle: Text(photo.camera.fullName, overflow: TextOverflow.ellipsis),
                             trailing: Text(formatDate(photo.earthDate)),

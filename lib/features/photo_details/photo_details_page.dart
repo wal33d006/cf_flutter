@@ -1,28 +1,25 @@
 import 'package:cf_flutter/domain/utils/date_formatter.dart';
 import 'package:cf_flutter/features/photo_details/photo_details_presenter.dart';
-import 'package:cf_flutter/features/photo_details/photo_details_initial_params.dart';
 import 'package:cf_flutter/features/photo_details/photo_details_presentation_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PhotoDetailsPage extends StatefulWidget {
-  final PhotoDetailsInitialParams initialParams;
+  final PhotoDetailsPresenter presenter;
 
-  const PhotoDetailsPage({required this.initialParams, Key? key}) : super(key: key);
+  const PhotoDetailsPage({required this.presenter, Key? key}) : super(key: key);
 
   @override
   State<PhotoDetailsPage> createState() => _PhotoDetailsPageState();
 }
 
 class _PhotoDetailsPageState extends State<PhotoDetailsPage> {
-  late PhotoDetailsPresenter cubit;
+  PhotoDetailsPresenter get presenter => widget.presenter;
 
   @override
   void initState() {
     super.initState();
-    cubit = BlocProvider.of<PhotoDetailsPresenter>(context);
-    cubit.navigator.context = context;
-    cubit.onInit(widget.initialParams);
+    presenter.navigator.context = context;
   }
 
   @override
@@ -30,7 +27,7 @@ class _PhotoDetailsPageState extends State<PhotoDetailsPage> {
     return Scaffold(
       appBar: AppBar(),
       body: BlocBuilder<PhotoDetailsPresenter, PhotoDetailsPresentationModel>(
-        bloc: cubit,
+        bloc: presenter,
         builder: (context, state) {
           final photo = state.photo;
           return Center(

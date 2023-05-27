@@ -7,7 +7,6 @@ class PhotoDetailsPresenter extends Cubit<PhotoDetailsPresentationModel> {
   final PhotoDetailsInitialParams initialParams;
   final PhotoDetailsNavigator navigator;
 
-  PhotoDetailsPresenter(this.initialParams, this.navigator) : super(PhotoDetailsPresentationModel.initial(initialParams));
-
-  void onInit(PhotoDetailsInitialParams initialParams) => emit(state.copyWith(photo: initialParams.photo));
+  PhotoDetailsPresenter(this.initialParams, this.navigator)
+      : super(PhotoDetailsPresentationModel.initial(initialParams));
 }

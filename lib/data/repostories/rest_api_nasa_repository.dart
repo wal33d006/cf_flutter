@@ -13,7 +13,7 @@ class RestApiNasaRepository implements NasaRepository {
   @override
   Future<Either<GetPhotosFailure, List<Photo>>> getPhotos() => _client
       .get(
-        'https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=DEMO_KEY',
+        'https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=mzQVQpZD4UCTgVLzMZWlfF15LMIE3vucXvOr2Xig',
       )
       .then(
         (value) => value.fold(

@@ -1,5 +1,6 @@
 import 'package:cf_flutter/data/network/dio_client.dart';
 import 'package:cf_flutter/data/repostories/firebase_auth_repository.dart';
+import 'package:cf_flutter/data/repostories/mock_nasa_repository.dart';
 import 'package:cf_flutter/data/repostories/rest_api_nasa_repository.dart';
 import 'package:cf_flutter/domain/respositories/auth_repository.dart';
 import 'package:cf_flutter/domain/respositories/nasa_respository.dart';
@@ -17,7 +18,6 @@ import 'package:cf_flutter/firebase_options.dart';
 import 'package:cf_flutter/navigation/app_navigator.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
 GetIt getIt = GetIt.instance;
@@ -25,32 +25,36 @@ GetIt getIt = GetIt.instance;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  getIt.registerFactory<DioClient>(DioClient.new);
-  getIt.registerLazySingleton<NasaRepository>(() => RestApiNasaRepository(getIt()));
-  getIt.registerLazySingleton<AuthRepository>(() => FirebaseAuthRepository());
-  getIt.registerFactory<AppNavigator>(AppNavigator.new);
-  getIt.registerLazySingleton<PhotoListNavigator>(() => PhotoListNavigator(getIt()));
-  getIt.registerLazySingleton<PhotoDetailsNavigator>(() => PhotoDetailsNavigator(getIt()));
-  getIt.registerLazySingleton<OnboardingNavigator>(() => OnboardingNavigator(getIt()));
+  getIt
+    ..registerFactory<DioClient>(DioClient.new)
+    ..registerLazySingleton<NasaRepository>(() => MockNasaRepository())
+    ..registerLazySingleton<AuthRepository>(() => FirebaseAuthRepository())
+    ..registerFactory<AppNavigator>(AppNavigator.new)
+    ..registerLazySingleton<PhotoListNavigator>(() => PhotoListNavigator(getIt()))
+    ..registerLazySingleton<PhotoDetailsNavigator>(() => PhotoDetailsNavigator(getIt()))
+    ..registerLazySingleton<OnboardingNavigator>(() => OnboardingNavigator(getIt()))
+    ..registerFactoryParam<PhotoListPresenter, PhotoListInitialParams, dynamic>(
+      (params, _) => PhotoListPresenter(
+        params,
+        getIt(),
+        getIt(),
+      ),
+    )
+    ..registerFactoryParam<PhotoDetailsPresenter, PhotoDetailsInitialParams, dynamic>(
+      (params, _) => PhotoDetailsPresenter(
+        params,
+        getIt(),
+      ),
+    )
+    ..registerFactoryParam<OnboardingPresenter, OnboardingInitialParams, dynamic>(
+      (params, _) => OnboardingPresenter(
+        params,
+        getIt(),
+        getIt(),
+      ),
+    );
 
-  runApp(MultiBlocProvider(
-    providers: [
-      BlocProvider<PhotoListPresenter>(
-        create: (BuildContext context) => PhotoListPresenter(const PhotoListInitialParams(), getIt(), getIt()),
-      ),
-      BlocProvider<PhotoDetailsPresenter>(
-        create: (BuildContext context) => PhotoDetailsPresenter(PhotoDetailsInitialParams.empty(), getIt()),
-      ),
-      BlocProvider<OnboardingPresenter>(
-        create: (BuildContext context) => OnboardingPresenter(
-          const OnboardingInitialParams(),
-          getIt(),
-          getIt(),
-        ),
-      ),
-    ],
-    child: const MyApp(),
-  ));
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -65,7 +69,9 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.grey),
         useMaterial3: true,
       ),
-      home: const OnboardingPage(),
+      home: OnboardingPage(
+        presenter: getIt(param1: const OnboardingInitialParams()),
+      ),
     );
   }
 }

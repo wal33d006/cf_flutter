@@ -4,21 +4,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class OnboardingPage extends StatefulWidget {
-  const OnboardingPage({Key? key}) : super(key: key);
+  final OnboardingPresenter presenter;
+
+  const OnboardingPage({required this.presenter, Key? key}) : super(key: key);
 
   @override
   State<OnboardingPage> createState() => _OnboardingPageState();
 }
 
 class _OnboardingPageState extends State<OnboardingPage> {
-  late OnboardingPresenter cubit;
+  OnboardingPresenter get presenter => widget.presenter;
 
   @override
   void initState() {
     super.initState();
-    cubit = BlocProvider.of<OnboardingPresenter>(context);
-    cubit.navigator.context = context;
-    cubit.onInit();
+    presenter.navigator.context = context;
+    presenter.onInit();
   }
 
   @override
@@ -26,7 +27,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
     return Scaffold(
       appBar: AppBar(),
       body: BlocBuilder<OnboardingPresenter, OnboardingPresentationModel>(
-        bloc: cubit,
+        bloc: presenter,
         builder: (context, state) {
           return Center(
             child: state.isLoading ? const CircularProgressIndicator() : Container(),

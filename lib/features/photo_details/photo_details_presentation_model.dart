@@ -4,7 +4,10 @@ import 'package:cf_flutter/features/photo_details/photo_details_initial_params.d
 class PhotoDetailsPresentationModel {
   const PhotoDetailsPresentationModel({required this.photo});
 
-  factory PhotoDetailsPresentationModel.initial(PhotoDetailsInitialParams initialParams) => PhotoDetailsPresentationModel(photo: Photo.empty());
+  factory PhotoDetailsPresentationModel.initial(PhotoDetailsInitialParams initialParams) =>
+      PhotoDetailsPresentationModel(
+        photo: initialParams.photo,
+      );
 
   final Photo photo;
 

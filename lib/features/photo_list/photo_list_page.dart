@@ -33,18 +33,27 @@ class _PhotoListPageState extends State<PhotoListPage> {
             automaticallyImplyLeading: false,
             title: const Text('CF Flutter'),
             centerTitle: true,
+            actions: [
+              Switch(
+                value: state.isDarkTheme,
+                onChanged: presenter.onThemeToggled,
+                activeColor: Theme.of(context).primaryColorLight,
+              ),
+            ],
           ),
           body: state.isLoading
-              ? const Center(
-                  child: CircularProgressIndicator(),
+              ? Center(
+                  child: CircularProgressIndicator(
+                    color: Theme.of(context).colorScheme.background,
+                  ),
                 )
               : ListView(
                   children: state.photos
                       .map(
                         (photo) => Container(
                           margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-                          decoration:
-                              BoxDecoration(color: Colors.grey.shade200, borderRadius: BorderRadius.circular(10)),
+                          decoration: BoxDecoration(
+                              color: Theme.of(context).cardColor, borderRadius: BorderRadius.circular(10)),
                           child: ListTile(
                             onTap: () => presenter.onPhotoTapped(photo),
                             title: Text(photo.camera.name),

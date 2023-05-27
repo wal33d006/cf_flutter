@@ -4,6 +4,7 @@ import 'package:cf_flutter/features/photo_details/photo_details_initial_params.d
 import 'package:cf_flutter/features/photo_list/photo_list_presenter.dart';
 import 'package:cf_flutter/features/photo_list/photo_list_initial_params.dart';
 import 'package:cf_flutter/features/photo_list/photo_list_navigator.dart';
+import 'package:cf_flutter/theme/theme_store.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -14,6 +15,7 @@ void main() {
   late PhotoListPresenter presenter;
   late PhotoListNavigator navigator;
   late MockNasaRepository mockNasaRepository;
+  late ThemeStore themeStore;
 
   test(
     'On init should populate photos in the state',
@@ -54,11 +56,13 @@ void main() {
   setUp(() {
     registerFallbackValue(PhotoDetailsInitialParams(photo: Photo.empty()));
     mockNasaRepository = MockNasaRepository();
+    themeStore = ThemeStore();
     navigator = MockPhotoListNavigator();
     presenter = PhotoListPresenter(
       const PhotoListInitialParams(),
       mockNasaRepository,
       navigator,
+      themeStore,
     );
   });
 }

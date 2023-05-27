@@ -47,7 +47,8 @@ class _PhotoDetailsPageState extends State<PhotoDetailsPage> {
                   Container(
                     margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
                     padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(color: Colors.grey.shade200, borderRadius: BorderRadius.circular(10)),
+                    decoration:
+                        BoxDecoration(color: Theme.of(context).cardColor, borderRadius: BorderRadius.circular(10)),
                     child: ListTile(
                       title: Text('Camera details', style: Theme.of(context).textTheme.titleMedium),
                       subtitle: Column(

@@ -1,0 +1,3 @@
+class PhotoListInitialParams {
+  const PhotoListInitialParams();
+}

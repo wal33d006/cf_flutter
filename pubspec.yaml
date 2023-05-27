@@ -38,6 +38,7 @@ dependencies:
   intl:
   firebase_auth: 4.6.1
   firebase_core: 2.13.0
+  mocktail:
 
 
   # The following adds the Cupertino Icons font to your application.

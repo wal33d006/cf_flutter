@@ -26,6 +26,23 @@ class Photo extends Equatable {
         rover: Rover.empty(),
       );
 
+  Photo copyWith({
+    int? id,
+    int? sol,
+    Camera? camera,
+    String? imgSrc,
+    String? earthDate,
+    Rover? rover,
+  }) =>
+      Photo(
+        id: id ?? this.id,
+        sol: sol ?? this.sol,
+        camera: camera ?? this.camera,
+        imgSrc: imgSrc ?? this.imgSrc,
+        earthDate: earthDate ?? this.earthDate,
+        rover: rover ?? this.rover,
+      );
+
   @override
   List<Object?> get props => [
         id,
@@ -55,6 +72,19 @@ class Camera extends Equatable {
         name: '',
         roverId: 0,
         fullName: '',
+      );
+
+  Camera copyWith({
+    int? id,
+    String? name,
+    int? roverId,
+    String? fullName,
+  }) =>
+      Camera(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        roverId: roverId ?? this.roverId,
+        fullName: fullName ?? this.fullName,
       );
 
   @override
@@ -87,6 +117,21 @@ class Rover extends Equatable {
         landingDate: '',
         launchDate: '',
         status: '',
+      );
+
+  Rover copyWith({
+    int? id,
+    String? name,
+    String? landingDate,
+    String? launchDate,
+    String? status,
+  }) =>
+      Rover(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        landingDate: landingDate ?? this.landingDate,
+        launchDate: launchDate ?? this.launchDate,
+        status: status ?? this.status,
       );
 
   @override

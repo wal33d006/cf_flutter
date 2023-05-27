@@ -1,22 +1,22 @@
 import 'package:cf_flutter/domain/respositories/auth_repository.dart';
 import 'package:cf_flutter/features/onboarding/onboarding_initial_params.dart';
 import 'package:cf_flutter/features/onboarding/onboarding_navigator.dart';
-import 'package:cf_flutter/features/onboarding/onboarding_state.dart';
+import 'package:cf_flutter/features/onboarding/onboarding_presentation_model.dart';
 import 'package:cf_flutter/features/photo_list/photo_list_initial_params.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class OnboardingCubit extends Cubit<OnboardingState> {
+class OnboardingPresenter extends Cubit<OnboardingPresentationModel> {
   final OnboardingInitialParams initialParams;
   final OnboardingNavigator navigator;
   final AuthRepository _authRepository;
 
-  OnboardingCubit(
+  OnboardingPresenter(
     this.initialParams,
     this.navigator,
     this._authRepository,
-  ) : super(OnboardingState.initial(initialParams));
+  ) : super(OnboardingPresentationModel.initial(initialParams));
 
-  void onInit() {
+  Future<void> onInit() async {
     emit(state.copyWith(isLoading: true));
     _authRepository.signInAnonymously().then(
           (value) => value.fold(

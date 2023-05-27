@@ -1,5 +1,5 @@
 class GetPhotosFailure {
   final String friendlyErrorString;
 
-  GetPhotosFailure({this.friendlyErrorString = 'Could not fetch photos'});
+  const GetPhotosFailure({this.friendlyErrorString = 'Could not fetch photos'});
 }

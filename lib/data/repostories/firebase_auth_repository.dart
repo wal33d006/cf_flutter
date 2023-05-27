@@ -9,7 +9,6 @@ class FirebaseAuthRepository implements AuthRepository {
   Future<Either<SignInFailure, User>> signInAnonymously() async {
     try {
       final userCredential = await auth.FirebaseAuth.instance.signInAnonymously();
-      print(userCredential.user?.uid);
       return right(User(uid: userCredential.user?.uid ?? ''));
     } on auth.FirebaseAuthException catch (e) {
       return left(SignInFailure(friendlyErrorString: e.message ?? ''));

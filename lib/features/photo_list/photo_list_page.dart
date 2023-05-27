@@ -1,6 +1,6 @@
 import 'package:cf_flutter/domain/utils/date_formatter.dart';
-import 'package:cf_flutter/features/photo_list/photo_list_cubit.dart';
-import 'package:cf_flutter/features/photo_list/photo_list_state.dart';
+import 'package:cf_flutter/features/photo_list/photo_list_presenter.dart';
+import 'package:cf_flutter/features/photo_list/photo_list_presentation_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -12,19 +12,19 @@ class PhotoListPage extends StatefulWidget {
 }
 
 class _PhotoListPageState extends State<PhotoListPage> {
-  late PhotoListCubit cubit;
+  late PhotoListPresenter cubit;
 
   @override
   void initState() {
     super.initState();
-    cubit = BlocProvider.of<PhotoListCubit>(context);
+    cubit = BlocProvider.of<PhotoListPresenter>(context);
     cubit.navigator.context = context;
     cubit.onInit();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<PhotoListCubit, PhotoListState>(
+    return BlocBuilder<PhotoListPresenter, PhotoListPresentationModel>(
       bloc: cubit,
       builder: (context, state) {
         return Scaffold(

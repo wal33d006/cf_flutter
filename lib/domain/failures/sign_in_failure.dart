@@ -1,5 +1,5 @@
 class SignInFailure {
   final String friendlyErrorString;
 
-  SignInFailure({this.friendlyErrorString = 'Could not fetch photos'});
+  const SignInFailure({this.friendlyErrorString = 'Could not sign in'});
 }

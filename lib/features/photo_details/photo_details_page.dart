@@ -1,7 +1,7 @@
 import 'package:cf_flutter/domain/utils/date_formatter.dart';
-import 'package:cf_flutter/features/photo_details/photo_details_cubit.dart';
+import 'package:cf_flutter/features/photo_details/photo_details_presenter.dart';
 import 'package:cf_flutter/features/photo_details/photo_details_initial_params.dart';
-import 'package:cf_flutter/features/photo_details/photo_details_state.dart';
+import 'package:cf_flutter/features/photo_details/photo_details_presentation_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,12 +15,12 @@ class PhotoDetailsPage extends StatefulWidget {
 }
 
 class _PhotoDetailsPageState extends State<PhotoDetailsPage> {
-  late PhotoDetailsCubit cubit;
+  late PhotoDetailsPresenter cubit;
 
   @override
   void initState() {
     super.initState();
-    cubit = BlocProvider.of<PhotoDetailsCubit>(context);
+    cubit = BlocProvider.of<PhotoDetailsPresenter>(context);
     cubit.navigator.context = context;
     cubit.onInit(widget.initialParams);
   }
@@ -29,7 +29,7 @@ class _PhotoDetailsPageState extends State<PhotoDetailsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: BlocBuilder<PhotoDetailsCubit, PhotoDetailsState>(
+      body: BlocBuilder<PhotoDetailsPresenter, PhotoDetailsPresentationModel>(
         bloc: cubit,
         builder: (context, state) {
           final photo = state.photo;

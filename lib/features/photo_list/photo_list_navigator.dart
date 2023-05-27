@@ -1,4 +1,6 @@
 import 'package:cf_flutter/features/photo_details/photo_details_navigator.dart';
+import 'package:cf_flutter/features/photo_list/photo_list_initial_params.dart';
+import 'package:cf_flutter/features/photo_list/photo_list_page.dart';
 import 'package:cf_flutter/navigation/app_navigator.dart';
 import 'package:cf_flutter/navigation/error_dialog_route.dart';
 import 'package:flutter/material.dart';
@@ -11,4 +13,14 @@ class PhotoListNavigator with PhotoDetailsRoute, ErrorDialogRoute {
 
   @override
   late BuildContext context;
+}
+
+mixin PhotoListRoute {
+  openPhotoList(PhotoListInitialParams initialParams) {
+    appNavigator.pushReplacement(context, const PhotoListPage());
+  }
+
+  AppNavigator get appNavigator;
+
+  BuildContext get context;
 }

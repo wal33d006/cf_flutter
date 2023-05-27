@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1074004548995",
+    "project_id": "cf-flutter-fe1ec",
+    "storage_bucket": "cf-flutter-fe1ec.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1074004548995:android:e9dfa149e2a8f03b872ab6",
+        "android_client_info": {
+          "package_name": "com.example.cf_flutter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBdlfCkUHIyOkBw9eFl8ZKaXLvLwiZq--4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

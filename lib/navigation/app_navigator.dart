@@ -8,4 +8,9 @@ class AppNavigator {
       );
 
   close(BuildContext context) => Navigator.of(context).pop();
+
+  pushReplacement(context, Widget page) => Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => page),
+        (route) => false,
+      );
 }

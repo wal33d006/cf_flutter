@@ -1,7 +1,6 @@
 import 'package:cf_flutter/data/network/dio_client.dart';
 import 'package:cf_flutter/data/repostories/env_repository.dart';
 import 'package:cf_flutter/data/repostories/firebase_auth_repository.dart';
-import 'package:cf_flutter/data/repostories/mock_nasa_repository.dart';
 import 'package:cf_flutter/data/repostories/rest_api_nasa_repository.dart';
 import 'package:cf_flutter/domain/respositories/auth_repository.dart';
 import 'package:cf_flutter/domain/respositories/nasa_respository.dart';
@@ -31,8 +30,9 @@ void main() async {
   getIt
     ..registerFactory<DioClient>(DioClient.new)
     ..registerFactory<EnvRepository>(EnvRepository.new)
-    // ..registerLazySingleton<NasaRepository>(() => RestApiNasaRepository(getIt(), getIt()))
-    ..registerLazySingleton<NasaRepository>(() => MockNasaRepository())
+    ..registerLazySingleton<NasaRepository>(() => RestApiNasaRepository(getIt(), getIt()))
+    /// Only for testing purposes during development
+    // ..registerLazySingleton<NasaRepository>(() => MockNasaRepository())
     ..registerLazySingleton<AuthRepository>(() => FirebaseAuthRepository())
     ..registerFactory<AppNavigator>(AppNavigator.new)
     ..registerLazySingleton<PhotoListNavigator>(() => PhotoListNavigator(getIt()))

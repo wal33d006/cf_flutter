@@ -1,6 +1,7 @@
 import 'package:cf_flutter/data/models/photo_json.dart';
 import 'package:cf_flutter/data/network/dio_client.dart';
 import 'package:cf_flutter/data/repostories/env_repository.dart';
+import 'package:cf_flutter/data/utils.dart';
 import 'package:cf_flutter/domain/failures/get_photos_failure.dart';
 import 'package:cf_flutter/domain/models/photo.dart';
 import 'package:cf_flutter/domain/respositories/nasa_respository.dart';
@@ -15,7 +16,7 @@ class RestApiNasaRepository implements NasaRepository {
   @override
   Future<Either<GetPhotosFailure, List<Photo>>> getPhotos() => _client
       .get(
-        'https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=${_envRepository.getEnvironmentVariableByKey('API_KEY')}',
+        '${UrlConstants.roverPhotos}&api_key=${_envRepository.getEnvironmentVariableByKey(UrlConstants.apiEnvKey)}',
       )
       .then(
         (value) => value.fold(

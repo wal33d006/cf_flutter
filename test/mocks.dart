@@ -1,4 +1,5 @@
 import 'package:cf_flutter/data/network/dio_client.dart';
+import 'package:cf_flutter/data/repostories/env_repository.dart';
 import 'package:cf_flutter/domain/models/photo.dart';
 import 'package:cf_flutter/domain/respositories/auth_repository.dart';
 import 'package:cf_flutter/domain/respositories/nasa_respository.dart';
@@ -30,3 +31,5 @@ class MockNasaRepository extends Mock implements NasaRepository {}
 class MockAuthRepository extends Mock implements AuthRepository {}
 
 class MockDioClient extends Mock implements DioClient {}
+
+class MockEnvRepository extends Mock implements EnvRepository {}

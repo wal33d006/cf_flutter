@@ -1,4 +1,5 @@
 import 'package:cf_flutter/data/network/dio_client.dart';
+import 'package:cf_flutter/data/repostories/env_repository.dart';
 import 'package:cf_flutter/data/repostories/firebase_auth_repository.dart';
 import 'package:cf_flutter/data/repostories/mock_nasa_repository.dart';
 import 'package:cf_flutter/data/repostories/rest_api_nasa_repository.dart';
@@ -18,15 +19,19 @@ import 'package:cf_flutter/firebase_options.dart';
 import 'package:cf_flutter/navigation/app_navigator.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 
 GetIt getIt = GetIt.instance;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: ".env");
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   getIt
     ..registerFactory<DioClient>(DioClient.new)
+    ..registerFactory<EnvRepository>(EnvRepository.new)
+    // ..registerLazySingleton<NasaRepository>(() => RestApiNasaRepository(getIt(), getIt()))
     ..registerLazySingleton<NasaRepository>(() => MockNasaRepository())
     ..registerLazySingleton<AuthRepository>(() => FirebaseAuthRepository())
     ..registerFactory<AppNavigator>(AppNavigator.new)
@@ -64,7 +69,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'CF Flutter',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.grey),
         useMaterial3: true,
